@@ -1,5 +1,8 @@
 import time
 import json
+
+from transformers import PreTrainedTokenizerFast
+
 from preprocessing import FileIO
 from typing import List
 import tiktoken 
@@ -77,11 +80,12 @@ def validate_token_threshold(ranked_results: List[dict],
             logger.info(f'Total Final Token Count: {token_count}')
         return ranked_results
 
-def _get_batch_length(ranked_results: List[dict], tokenizer: tiktoken.Encoding) -> int:
+def _get_batch_length(ranked_results: List[dict], tokenizer: PreTrainedTokenizerFast) -> int:
     '''
     Convenience function to get the length in tokens of a batch of results 
     '''
-    contexts = tokenizer.encode_batch([r['content'] for r in ranked_results])
+    # contexts = tokenizer.encode_batch([r['content'] for r in ranked_results])
+    contexts = tokenizer.batch_encode_plus([r['content'] for r in ranked_results])
     context_len = sum(list(map(len, contexts)))
     return context_len
 

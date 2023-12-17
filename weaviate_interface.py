@@ -51,7 +51,7 @@ class WeaviateClient(Client):
             self.model = SentenceTransformer(self.model_name_or_path) if self.model_name_or_path else None
 
         self.display_properties = ['title', 'video_id', 'length', 'thumbnail_url', 'views', 'episode_url', \
-                                    'doc_id', 'guest', 'content']  # 'playlist_id', 'channel_id', 'author'
+                                    'doc_id', 'guest', 'content', 'summary']  # 'playlist_id', 'channel_id', 'author'
         
     def show_classes(self) -> Union[List[dict], str]:
         '''
